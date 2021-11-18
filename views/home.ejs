@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OData Service APIs</title>
+    
+    <!-- CSS (load bootstrap from a CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      body { padding-top:50px; }
+    </style>
+</head>
+<body class="container">
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">OData APIs</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">List People</a>
+        </li>
+    </ul>
+    </nav>
+</header>
+
+<main>
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-12">
+        <form method="GET" action="/api/people">
+          <div class="row">
+            <div class="col-md-4">
+              <input type="text" name="searchText" placeholder="Search by Name"/>
+              <button type="submit">Search</button>
+              <br/>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ul>
+          <% peoples.forEach(function(people) { %>
+            <li>
+              <strong><%= people.FirstName %> <%= people.LastName %></strong>
+              <a href="/people/<%= people.UserName %>">
+                Username: <%= people.UserName %>
+              </a>
+              <a href="/people/<%= people.UserName %>/edit">
+                [Edit]
+              </a>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+    <p class="text-center text-muted">&copy; Copyright 2021</p>
+</footer>
+
+</body>
+</html>

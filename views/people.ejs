@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OData Service APIs</title>
+    
+    <!-- CSS (load bootstrap from a CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      body { padding-top:50px; }
+    </style>
+</head>
+<body class="container">
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">OData APIs</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/">List People</a>
+        </li>
+    </ul>
+    </nav>
+</header>
+
+<main>
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-12">
+        <% if (!success) { %>
+            Invalid UserName, No User found
+        <% } %>
+        <% if (success && !edit) { %>
+            <ul>
+                <li>
+                    <strong>First Name: <%= people.FirstName %></strong>
+                </li>
+                <li>
+                    Last Name: <%= people.LastName %>
+                </li>
+                <li>
+                    Gender: <%= people.Gender %>
+                </li>
+                <li>
+                    Emails: <%= people.Emails %>
+                </li>
+                <li>
+                    AddressInfo: <%= people.AddressInfo[0].Address %>
+                    City: <%= people.AddressInfo[0].City.Name %>
+                </li>
+            </ul>
+        <% } %>
+        <% if (errorMsg) { %>
+            Error updating record from OData API
+        <% } %>
+        <% if (success && edit) { %>
+            <form method="post" action="/api/people/<%= people.UserName %>">
+                <ul>
+                    <li>
+                        <input type="text" value="<%= people.FirstName %>" name="FirstName"/>
+                    </li>
+                    <li>
+                        <input type="text" value="<%= people.LastName %>" name="LastName"/>
+                    </li>
+                    <li>
+                        <input type="text" value="<%= people.Gender %>" name="Gender"/>
+                    </li>
+                </ul>
+                <button type="submit">Update</button>
+            </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+    <p class="text-center text-muted">&copy; Copyright 2021</p>
+</footer>
+
+</body>
+</html>
